@@ -6,7 +6,7 @@ import jwt
 
 from models import User
 
-User.objects.create(email='user@email.com', password='password')
+User.Objects.create(email='user@email.com', password='password')
 
 JWT_SECRET = 'secret'
 JWT_ALGORITHM = 'HS256'
@@ -23,7 +23,7 @@ async def login(request):
     post_data = await request.post()
 
     try:
-        user = User.objects.get(email=post_data['email'])
+        user = User.Objects.get(email=post_data['email'])
         user.match_password(post_data['password'])
     except (User.DoesNotExist, User.PasswordDoesNotMatch):
         return json_response({'message': 'Wrong credentials'}, status=400)
@@ -52,7 +52,7 @@ async def auth_middleware(app, handler):
                 return json_response({'message': 'Token is invalid'},
                                      status=400)
 
-            request.user = User.objects.get(id=payload['user_id'])
+            request.user = User.Objects.get(id=payload['user_id'])
         return await handler(request)
 
     return middleware

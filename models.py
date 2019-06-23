@@ -26,7 +26,7 @@ class User:
     class PasswordDoesNotMatch(BaseException):
         pass
 
-    class objects:
+    class Objects:
         _storage = []
         _max_id = 0
 
